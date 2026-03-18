@@ -8,7 +8,7 @@
 ## Инструкция по запуску
  **Google Colab**
 
-1. Загрузите lab_03_ml.ipynb в Google Colab
+1. Загрузите lab_03_ml_var7.ipynb в Google Colab
 2. Запустите все ячейки подряд (Runtime → Run all)
 3. Зависимости устанавливаются автоматически в первой ячейке
 
