@@ -87,7 +87,7 @@ m_train, m_test = df_features.filter(F.col('gender')=='male').randomSplit([0.8, 
 Train: 38,692 записей (female: 2,671, male: 36,021)
 Test: 9,709 записей
 
-### 3.2 Pipeline обработки данных
+### 3.2 ML-трансформеры для Pipeline
 ```python
 #Кодирование целевой переменной
 gender_indexer = StringIndexer(inputCol='gender', outputCol='label', handleInvalid='skip')
@@ -119,7 +119,7 @@ scaler = StandardScaler(
     withStd=True
 )
 ```
-### 3.3 Baseline модель: Random Forest
+### 3.3 Random Forest
 ```python
 rf_base = RandomForestClassifier(
     labelCol='label', 
