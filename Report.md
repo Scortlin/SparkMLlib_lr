@@ -186,15 +186,17 @@ model_gbt = pipeline_gbt.fit(train_df)
 Топ-10 наиболее важных признаков для GBT:
 
 Важность признаков (Top-10):
-        feature  importance
-     speed_mean    0.220785
-       alt_mean    0.220754
-      alt_range    0.128575
-      speed_max    0.071199
- hr_mean_sliced    0.068343
- workout_length    0.059817
-  hr_max_sliced    0.052506
-hr_range_sliced    0.042889
-  hr_min_sliced    0.025001
-    sport_ohe_0    0.019928
+
+|feature|importance|
+|-|-|
+|speed_mean |0.220785|
+|alt_mean   | 0.220754|
+|alt_range  |  0.128575|
+|speed_max  |  0.071199|
+ |hr_mean_sliced  |  0.068343|
+ |workout_length    |0.059817|
+  |hr_max_sliced    |0.052506|
+|hr_range_sliced    |0.042889|
+  |hr_min_sliced    |0.025001|
+    |sport_ohe_0    |0.019928|
 Вывод: Наиболее информативными оказались скоростные характеристики и данные о высоте.
