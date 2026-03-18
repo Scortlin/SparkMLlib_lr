@@ -67,3 +67,9 @@ df_sliced = df_clean.withColumn(
 * `hr_max_sliced` - Максимальное значение пульса
 * `hr_min_sliced` - Минимальное значение пульса
 * `hr_range_sliced` - Размах пульса (max - min)
+
+Дополнительные признаки:
+
+* `speed_mean`, `speed_max` — статистики скорости
+* `alt_mean`, `alt_range` — статистики высоты
+* `workout_length` — длина тренировки
