@@ -26,9 +26,9 @@
 
 ```python
 df_clean = (raw_df
-    .filter(F.size(F.col('heart_rate')) >= 30)      # минимум 30 точек пульса для обрезки
-    .filter(F.size(F.col('speed')) >= 10)           
-    .dropna(subset=['sport', 'gender'])              
+    .filter(F.size(F.col('heart_rate')) >= 30)      # минимум 30 точек пульса
+    .filter(F.size(F.col('speed')) >= 10)           # минимум 10 точек скорости
+    .dropna(subset=['sport', 'gender'])              # обязательные признаки
     .filter(F.col('gender').isin('male', 'female'))  # только валидные значения
 )
 ```
