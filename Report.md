@@ -163,6 +163,7 @@ model_gbt = pipeline_gbt.fit(train_df)
 ### 4.1 Сравнение метрик
 
 |Метрика    |Random Forest |GBT         | Δ    |
+|-|------|-|
 |ROC-AUC    |0.7516        | 0.8540 +   |0.1024|
 |PR-AUC     |0.3244        | 0.4580 +   |0.1336|
 |Accuracy   |0.9280        | 0.9379 +   |0.0099|
