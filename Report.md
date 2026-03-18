@@ -177,7 +177,8 @@ model_gbt = pipeline_gbt.fit(train_df)
 | |Pred Female|Pred Male|
 |-|---|-|
 |True Female|8984|24|
-|True Male   |579  |122|
+|True Male|579|122|
+
 Интерпретация:
 Модель отлично определяет мужчин (99.4% точность), но хуже определяет женщин (83.6% точность)
 
