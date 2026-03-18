@@ -19,7 +19,7 @@
 pip install pyspark==3.4.1 gdown findspark matplotlib seaborn scikit-learn
 
 # Запуск Jupyter
-jupyter notebook lab_03_ml_var7.ipynb****
+jupyter notebook lab_03_ml_var7.ipynb
 ```
 ## Ссылка на источник данных
 
