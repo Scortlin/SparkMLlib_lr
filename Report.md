@@ -45,3 +45,20 @@ df_clean = (raw_df
 
 ### 2.2 Обработка пропусков
 Анализ пропущенных значений показал, что поле `speed` содержит 80.4% пропусков, однако после фильтрации записей с размером `speed >= 10` проблема решена.
+
+### 2.3 Конструирование признаков (Feature Engineering)
+В соответствии с заданием 1, выполнена обработка массива heart_rate путем обрезки до первых N значений (N = 30):
+
+```python
+from pyspark.sql.types import ArrayType, LongType
+
+def slice_array_udf(n):
+    return F.udf(lambda arr: arr[:n] if arr else [], ArrayType(LongType()))
+
+N_FIRST = 30
+df_sliced = df_clean.withColumn(
+    'heart_rate_sliced', 
+    slice_array_udf(N_FIRST)(F.col('heart_rate'))
+)
+```
+Из обрезанного массива созданы следующие признаки:
