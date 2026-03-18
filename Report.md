@@ -82,6 +82,13 @@ df_sliced = df_clean.withColumn(
 ```python
 f_train, f_test = df_features.filter(F.col('gender')=='female').randomSplit([0.8, 0.2], seed=42)
 m_train, m_test = df_features.filter(F.col('gender')=='male').randomSplit([0.8, 0.2], seed=42)
+
+train_df = f_train.union(m_train)
+test_df  = f_test.union(m_test)
+
+print(f'Train: {train_df.count():,}  |  Test: {test_df.count():,}')
+print('\nTrain — распределение:')
+train_df.groupBy('gender').count().show()
 ```
 Результат:
 Train: 38,692 записей (female: 2,671, male: 36,021)
