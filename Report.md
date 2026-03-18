@@ -73,3 +73,80 @@ df_sliced = df_clean.withColumn(
 * `speed_mean`, `speed_max` — статистики скорости
 * `alt_mean`, `alt_range` — статистики высоты
 * `workout_length` — длина тренировки
+
+
+## 3. Моделирование
+### 3.1 Разбиение данных
+Данные разделены на тренировочную и тестовую выборки в соотношении 80/20 со стратификацией по полу:
+
+```python
+f_train, f_test = df_features.filter(F.col('gender')=='female').randomSplit([0.8, 0.2], seed=42)
+m_train, m_test = df_features.filter(F.col('gender')=='male').randomSplit([0.8, 0.2], seed=42)
+```
+Результат:
+Train: 38,692 записей (female: 2,671, male: 36,021)
+Test: 9,709 записей
+
+### 3.2 Pipeline обработки данных
+```python
+#Кодирование целевой переменной
+gender_indexer = StringIndexer(inputCol='gender', outputCol='label', handleInvalid='skip')
+
+#Кодирование вида спорта
+sport_indexer = StringIndexer(inputCol='sport', outputCol='sport_idx', handleInvalid='keep')
+sport_encoder = OneHotEncoder(inputCols=['sport_idx'], outputCols=['sport_ohe'])
+
+#Числовые признаки
+NUMERIC_FEATURES = [
+    'hr_mean_sliced', 'hr_max_sliced', 'hr_min_sliced', 'hr_range_sliced',
+    'speed_mean', 'speed_max',
+    'alt_mean', 'alt_range',
+    'workout_length'
+]
+
+#Сборка вектора признаков
+assembler = VectorAssembler(
+    inputCols=NUMERIC_FEATURES + ['sport_ohe'],
+    outputCol='features_raw',
+    handleInvalid='skip'
+)
+
+#Масштабирование
+scaler = StandardScaler(
+    inputCol='features_raw',
+    outputCol='features_scaled',
+    withMean=True, 
+    withStd=True
+)
+```
+### 3.3 Baseline модель: Random Forest
+```python
+rf_base = RandomForestClassifier(
+    labelCol='label', 
+    featuresCol='features_scaled',
+    numTrees=50, 
+    maxDepth=5, 
+    seed=42
+)
+
+pipeline_rf = Pipeline(stages=[gender_indexer, sport_indexer, sport_encoder,
+                               assembler, scaler, rf_base])
+model_rf = pipeline_rf.fit(train_df)
+```
+**Время обучения:** 1061.9 секунд
+
+### 3.4 Основная модель: Gradient Boosted Trees (GBT)
+```python
+gbt = GBTClassifier(
+    labelCol='label',
+    featuresCol='features_scaled',
+    maxIter=50,
+    maxDepth=5,
+    seed=42
+)
+
+pipeline_gbt = Pipeline(stages=[gender_indexer, sport_indexer, sport_encoder,
+                                assembler, scaler, gbt])
+model_gbt = pipeline_gbt.fit(train_df)
+```
+**Время обучения:** 1588.9 секунды (в 1.5 раза дольше Random Forest)
