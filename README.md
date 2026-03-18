@@ -4,3 +4,14 @@
 Бизнес-кейс. Компания HealthTech (аналог Endomondo/Strava).
 
 Задача — построить модель машинного обучения для предсказания пола пользователя (`gender`) по данным о тренировках из датасета EndomondoHR.
+
+## Инструкция по запуску
+ **Google Colab**
+
+1. Загрузите lab_03_ml.ipynb в Google Colab
+2. Запустите все ячейки подряд (Runtime → Run all)
+3. Зависимости устанавливаются автоматически в первой ячейке
+
+## Ссылка на источник данных
+
+https://drive.google.com/file/d/1yiAp1fFDy3wSqUR0X_btCZPtuczbLwCe/view
